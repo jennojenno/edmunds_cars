@@ -14,13 +14,13 @@ require 'rake'
 require 'jeweler'
 Jeweler::Tasks.new do |gem|
   # gem is a Gem::Specification... see http://docs.rubygems.org/read/chapter/20 for more options
-  gem.name = "Edmunds-Vehicle-Information"
-  gem.homepage = "http://github.com/ConnerMan/Edmunds-Vehicle-Information"
+  gem.name = "edmunds_cars"
+  gem.homepage = "http://github.com/ConnerMan/edmunds_cars"
   gem.license = "MIT"
   gem.summary = %Q{A wrapper for the edmunds.com REST api}
   gem.description = %Q{Easily query information about cars through the edmunds api. }
   gem.email = "conner@connerwingard.com"
-  gem.version = EdmundsVehicleInformation::Version::STRING
+  gem.version = 0.1
   gem.authors = ["Conner Wingard"]
   # dependencies defined in Gemfile
 end
@@ -33,22 +33,17 @@ Rake::TestTask.new(:test) do |test|
   test.verbose = true
 end
 
-require 'rcov/rcovtask'
-Rcov::RcovTask.new do |test|
-  test.libs << 'test'
-  test.pattern = 'test/**/test_*.rb'
-  test.verbose = true
-  test.rcov_opts << '--exclude "gems/*"'
-end
+require 'simplecov'
+
 
 task :default => :test
 
-require 'rake/rdoctask'
-Rake::RDocTask.new do |rdoc|
+require 'rdoc/task'
+RDoc::Task.new do |rdoc|
   version = File.exist?('VERSION') ? File.read('VERSION') : ""
 
   rdoc.rdoc_dir = 'rdoc'
-  rdoc.title = "Edmunds-Vehicle-Information #{version}"
+  rdoc.title = "edmunds_cars #{version}"
   rdoc.rdoc_files.include('README*')
   rdoc.rdoc_files.include('lib/**/*.rb')
 end
