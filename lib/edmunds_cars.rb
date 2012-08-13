@@ -91,4 +91,3 @@ require "edmunds_cars/consumer_reviews"
 require "edmunds_cars/maintenance"
 require "edmunds_cars/photos"
 require "edmunds_cars/incentives"
-

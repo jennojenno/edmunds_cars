@@ -19,9 +19,10 @@ module EdmundsCars::Makes
     end
 
     def available_models
-      result = find_all
+      result = EdmundsCars.get_edmunds_data API, "findall", {}
       
       make_models = Hash.new
+
       result["makeHolder"].each do |make|
         make_models[make["name"]] = make["models"].collect{|model_data| model_data["name"]}
       end
