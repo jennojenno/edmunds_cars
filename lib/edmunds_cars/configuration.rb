@@ -1,5 +1,6 @@
 module EdmundsCars::Configuration
-  attr_writer :vehicle_api_key, :inventory_api_key, :dealer_api_key
+  
+  attr_accessor :vehicle_api_key, :inventory_api_key, :dealer_api_key
     
   def configure(&block)
     instance_exec(&block)
@@ -10,7 +11,7 @@ module EdmundsCars::Configuration
     @default_model_year = (year || Time.now.year)
   end
   
-  def version(v=nil)
+  def api_version(v=nil)
     return @version if defined? @version and v.nil?
     @version = (v || 'v1')
   end

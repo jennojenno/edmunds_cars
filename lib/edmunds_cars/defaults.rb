@@ -1,5 +1,5 @@
 EdmundsCars.configure do
 
   default_model_year "2012"
-  version "v1"
+  api_version "v1"
 end
