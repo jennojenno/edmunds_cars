@@ -4,7 +4,7 @@ module EdmundsCars::Styles
   
   class << self
     
-    def find(id)
+    def by_id(id)
       EdmundsCars.get_edmunds_data API, "findbyid", {:id => id}
     end
   
