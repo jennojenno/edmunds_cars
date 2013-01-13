@@ -1,13 +1,12 @@
-module EdmundsCars::ConsumerReviews
-  API = "crrrepository"
+module EdmundsCars
+  class ConsumerReviews < Vehicles
   
-  class << self
+    base_uri "http://api.edmunds.com/v1/api/crrrepository"    
   
-    def crr_from_make_model_year(make, model, year)
-      EdmundsCars.get_edmunds_data API, "getcrrformakemodelyear", {:make => make, :model => model, :year => year}
+    def by_make_model_year(make, model, year)
+      self.class.get("/getcrrformakemodelyear", :query => {:make => make, :model => model, :year => year})
     end
 
   end
-  
 end
   

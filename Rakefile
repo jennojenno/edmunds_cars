@@ -1,7 +1,7 @@
 # encoding: utf-8
-
 require 'rubygems'
 require 'bundler'
+require './lib/edmunds_cars/version'
 begin
   Bundler.setup(:default, :development)
 rescue Bundler::BundlerError => e
@@ -13,34 +13,33 @@ require 'rake'
 
 require 'jeweler'
 Jeweler::Tasks.new do |gem|
-  # gem is a Gem::Specification... see http://docs.rubygems.org/read/chapter/20 for more options
-  gem.name = "edmunds_cars"
-  gem.homepage = "http://github.com/ConnerMan/edmunds_cars"
-  gem.license = "MIT"
-  gem.summary = %Q{A wrapper for the edmunds.com REST api}
+  gem.name        = "edmunds_cars"
+  gem.homepage    = "http://github.com/ConnerMan/edmunds_cars"
+  gem.license     = "MIT"
+  gem.summary     = %Q{A wrapper for the edmunds.com REST api}
   gem.description = %Q{Easily query information about cars through the edmunds api. }
-  gem.email = "conner@connerwingard.com"
-  gem.version = 0.1
-  gem.authors = ["Conner Wingard"]
-  # dependencies defined in Gemfile
+  gem.email       = "conner@connerwingard.com"
+  gem.version     = EdmundsCars::VERSION
+  gem.authors     = ["Conner Wingard"]
+
+  gem.require_paths = ["lib"]
+
+  gem.add_dependency("httparty","~> 0.9.0")
 end
 Jeweler::RubygemsDotOrgTasks.new
 
 require 'rake/testtask'
-Rake::TestTask.new(:test) do |test|
-  test.libs << 'lib' << 'test'
-  test.pattern = 'test/**/test_*.rb'
-  test.verbose = true
+Rake::TestTask.new do |t|
+  t.test_files = FileList['spec/lib/edmunds_cars/*_spec.rb']
+  t.verbose = true
+  t.warning = true
 end
-
-require 'simplecov'
-
-
 task :default => :test
+
 
 require 'rdoc/task'
 RDoc::Task.new do |rdoc|
-  version = File.exist?('VERSION') ? File.read('VERSION') : ""
+  version = EdmundsCars::VERSION
 
   rdoc.rdoc_dir = 'rdoc'
   rdoc.title = "edmunds_cars #{version}"

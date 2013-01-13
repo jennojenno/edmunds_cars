@@ -1,13 +1,12 @@
-module EdmundsCars::Incentives
-  API = "incentive/incentiverepository"
-  
-  class << self
-  
-    def by_style_id(style_id)
-      EdmundsCars.get_edmunds_data API, "findincentivesbystyleid", {:styleid => style_id}
-    end
+module EdmundsCars
+  class Incentives < Vehicles
+    
+    base_uri "http://api.edmunds.com/v1/api/incentive/incentiverepository"    
 
+    def by_style_id(style_id)
+      self.class.get("/findincentivesbystyleid", :query => {:styleid => style_id})
+    end
+    
   end
-  
 end
   

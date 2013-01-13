@@ -1,34 +1,15 @@
-module EdmundsCars::Makes
-  API = "vehicle/makerepository"
-  
-  class << self
+module EdmundsCars
+  class Makes < Vehicles
+    
+    base_uri "http://api.edmunds.com/v1/api/vehicle/makerepository"    
     
     def by_id(make_id)
-      EdmundsCars.get_edmunds_data API, "findbyid" , {:id => make_id}
+      self.class.get("/findbyid" , :query => {:id => make_id})
     end
     
     def all
-      result = EdmundsCars.get_edmunds_data API, "findall", {}
-      
-      makes = {}
-      result["makeHolder"] .each do |make|
-        makes[make["name"]] = make["id"]
-      end
-      
-      makes
+      self.class.get("/findall")
     end
 
-    def available_models
-      result = EdmundsCars.get_edmunds_data API, "findall", {}
-      
-      make_models = Hash.new
-
-      result["makeHolder"].each do |make|
-        make_models[make["name"]] = make["models"].collect{|model_data| model_data["name"]}
-      end
-      make_models
-    end
-    
-  end
-  
+  end  
 end

@@ -1,36 +1,15 @@
-module EdmundsCars::Models
-  
-  API = "vehicle/modelrepository"
-  
-  class << self
+module EdmundsCars
+  class Models < Vehicles
     
-    def by_make_and_model_name(make, model_name)
-      EdmundsCars.get_edmunds_data API, "findmodelbymakemodelname", {:make => make, :model=> model_name }
-    end
-  
-    def reliability_ratings(make, model_name)
-      vehicle = get_vehicle(make,model_name)
-      reliability_attrs = vehicle["attributeGroups"]["RELIABILITY_RATINGS"]
+    base_uri "http://api.edmunds.com/v1/api/vehicle"
 
-      raise ReliabilityDataUnavailable if reliability_attrs.nil?
-      reliability_attrs
+    def by_make_model(make, model)
+      self.class.get("/vehicle/modelrepository/findmodelbymakemodelname", :query => {:make => make, :model=> model_name })
     end
     
-    def categories(make, model_name, model_year=nil)
-      model_year ||= default_model_year
-      vehicle = get_vehicle(make,model_name,model_year)
-      vehicle["categories"]
+    def by_make_model_year(make, model, model_year = Time.now.year)
+      self.class.get("/vehicle/#{make}/#{model}/#{model_year}")
     end
-  
-    def vehicle(make, model_name, model_year=nil)
-      model_year ||=  default_model_year
-      data = EdmundsCars.get_edmunds_data "vehicle", "#{make}/#{model_name}/#{model_year}"
 
-      vehicles = data["modelYearHolder"]
-      raise VehicleNotFound if data["modelYearHolder"].empty?
-      vehicles[0]
-    end
-  
   end
-
 end

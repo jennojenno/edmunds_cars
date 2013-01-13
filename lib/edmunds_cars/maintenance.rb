@@ -1,46 +1,32 @@
-module EdmundsCars::Maintenance
-  API = "maintenance"
-  
-  module ServiceBulletins 
-    class << self
-      def by_model_year_id(id)
-        EdmundsCars.get_edmunds_data API, "servicebulletinrepository/findbymodelyearid", {:modelyearid => id}
-      end    
-    
-      def by_id(id)
-        EdmundsCars.get_edmunds_data API, "servicebulletin/#{id}", {}
-      end
+module EdmundsCars
+  class Maintenance < Vehicles
+
+    base_uri "http://api.edmunds.com/v1/api/maintenance"
+
+    def service_bulletins_by_model_year_id(id)
+      self.class.get("/servicebulletinrepository/findbymodelyearid", :query => {:modelyearid => id})
     end
-  end
-  
-  module StylesNotes
-    class << self
-      def by_id(id)
-        EdmundsCars.get_edmunds_data API, "stylesnotes/#{id}", {}
-      end
+
+    def service_bulletin_by_id(id)
+      self.class.get("/servicebulletin/#{id}")
     end
-  end
-  
-  module ZipLaborRate
-    class << self
-      def by_zipcode(zipcode)
-        EdmundsCars.get_edmunds_data API, "ziplaborrate/#{zipcode}", {}
-      end
+
+    def style_notes_by_id(id)
+      self.class.get("/stylenotes/#{id}")
     end
-  end
-  
-  
-  module Recall
-    class << self
-      def by_id(id)
-        EdmundsCars.get_edmunds_data API, "recall/#{id}", {}
-      end
-    
-      def by_model_year_id(model_year_id)
-        EdmundsCars.get_edmunds_data API, "recallrepository/#{id}", {:modelyearid => model_year_id}
-      end
+
+    def labor_rates_by_zip
+      self.class.get("/ziplaborrate/#{zipcode}")
     end
+
+    def recall_by_id(id)
+      self.class.get("/recall/#{id}")
+    end
+
+    def recall_by_model_year_id(model_year_id)
+      self.class.get("/recallrepository", :query => {:modelyearid => model_year_id})
+    end
+
   end
-  
 end
   
