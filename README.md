@@ -4,8 +4,10 @@ A ruby wrapper for the Edmunds ( <http://www.edmunds.com> ) api for auto informa
 
 First register for an edmunds developer account at	<http://developer.edmunds.com/>
 
--- edmunds = EdmundsCars::Models.new("YOUR_API_KEY")
--- toyota_four_runner = edmunds.by_make_model("toyota","4runner")
+```ruby
+edmunds = EdmundsCars::Models.new("YOUR_API_KEY")
+toyota_four_runner = edmunds.by_make_model("toyota","4runner")
+```
 
 This will provide a bunch of json about 4Runners. More documentation comings soon!
 
